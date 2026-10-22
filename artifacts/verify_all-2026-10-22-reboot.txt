@@ -1,0 +1,12 @@
+PASS  SM2 encryption: tampered C3 must NOT decrypt
+
+---- upstream self-check programs ----
+PASS  upstream SM3 self-test
+PASS  upstream SM4 self-test
+PASS  upstream SM2key self-test
+PASS  upstream SM2sv self-test
+PASS  upstream SM2enc self-test
+
+==============================================================
+ passed: 25   failed: 0
+==============================================================
