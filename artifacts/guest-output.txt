@@ -1,4 +1,6 @@
-6:# LAB1_PS1
-7:PS1='[20241422穆弈涵 \u@\h \W]\$ '
---- current prompt ---
-
+--- .bash_profile ---
+# Source /root/.bashrc if user has one
+[ -f ~/.bashrc ] && . ~/.bashrc
+--- does it source bashrc? ---
+1:# Source /root/.bashrc if user has one
+2:[ -f ~/.bashrc ] && . ~/.bashrc
