@@ -11,11 +11,11 @@
 
 | # | 作业要求 | 完成 | 证据 |
 | --- | --- | --- | --- |
-| ① | 调试运行检测中心源代码，至少 SM2/SM3/SM4；用 GmSSL 验证正确性；Markdown 记录过程；每完成一项功能/函数 git commit 一次（14 分） | ✅ | [`实践过程.md`](实践过程.md)、`artifacts/verify_all-2026-10-22.txt`（25/25 PASS）、11+ 次功能级提交 |
-| ② | 在密标委网站查找 SM2/SM3/SM4 标准，分析代码与标准的对应关系（6 分） | ✅ | [`docs/02`](docs/02-SM3实现与标准对应.md)~[`docs/04`](docs/04-SM2实现与标准对应.md)、`artifacts/gmbz-norm-list.json` |
+| ① | 调试运行检测中心源代码，至少 SM2/SM3/SM4；用 GmSSL 验证正确性；Markdown 记录过程；每完成一项功能/函数 git commit 一次（14 分） | ✅ | [`实践过程.md`](实践过程.md)、`artifacts/verify_all-2026-10-22.txt`（25/25 PASS）、**17 次提交（其中 11 次为功能级提交）** |
+| ② | 在密标委网站查找 SM2/SM3/SM4 标准，分析代码与标准的对应关系（6 分） | ✅ | [`docs/02`](docs/02-SM3实现与标准对应.md)~[`docs/04`](docs/04-SM2实现与标准对应.md)、`artifacts/gmbz-norm-list.json`（该站后台接口取回的全量 177 条原始 JSON；本轮未附浏览器界面截图，证据为 JSON + 自写筛选脚本） |
 | ③ | Rust 实现（选做 10 分） | ⛔ 未做 | — |
-| ④ | 提交仓库链接 + git log | ✅ | 本仓库 `main` 分支历史 |
-| ⑤ | 提交实践过程 Markdown 与 PDF；代码文档托管；记录问题、解决过程、反思 | ✅ | `实践过程.md` + `实践过程.pdf`；`docs/05` §5.2 记录了 10 个真实问题 |
+| ④ | 提交仓库链接 + git log | 🟡 | git log 完整（本仓库 `main` 分支，18 次提交）；**GitHub 推送本轮按要求暂缓**——`github.com` 本机 TCP 连接被重置，`api.github.com` 可达；网络恢复后建仓 `Yaqub-Saffar/lab2` 直接 push |
+| ⑤ | 提交实践过程 Markdown 与 PDF；代码文档托管；记录问题、解决过程、反思 | ✅ | `实践过程.md`（含 3 张实机运行截图）+ `实践过程.pdf`（13 页 / 3 图内嵌）；`docs/05` §5.2 记录了 10 个真实问题 |
 
 ## 2. 结论速览
 
