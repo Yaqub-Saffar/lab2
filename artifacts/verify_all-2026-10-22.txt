@@ -1,0 +1,44 @@
+==============================================================
+ SCCTC SM2349 cross verification   (2026-10-22 13:53:52)
+==============================================================
+
+---- SM3 ----
+PASS  SM3 GB/T 32905-2016 vector (abc)
+PASS  SM3 GB/T 32905-2016 vector (abcd x16)
+PASS  SM3 vs gmssl sm3 (1000 random bytes)
+
+---- SM4 ----
+PASS  SM4 GB/T 32907-2016 A.1 vector
+PASS  SM4 vs gmssl sm4_ecb
+PASS  SM4 vs openssl enc -sm4-ecb -nopad
+PASS  SM4 cross decrypt: gmssl ciphertext -> drv_sm4
+PASS  SM4 cross decrypt: drv_sm4 ciphertext -> gmssl
+
+---- SM2 key generation ----
+PASS  SM2 keygen GB/T 32918.5-2017 A.2 (xA)
+PASS  SM2 keygen GB/T 32918.5-2017 A.2 (yA)
+PASS  SM2 keygen vs GmSSL keypair (x)
+PASS  SM2 keygen vs GmSSL keypair (y)
+
+---- SM2 signature ----
+PASS  SM2 signature: drv_sm2_sv -> gmssl sm2verify
+PASS  SM2 signature: gmssl sm2sign -> drv_sm2_sv verify
+PASS  SM2 ZA: ours vs GmSSL (implied by mutual verify)
+PASS  SM2 signature: tampered message must NOT verify
+PASS  SM2 signature: tampered r must NOT verify in GmSSL
+
+---- SM2 encryption ----
+PASS  SM2 encryption: drv_sm2_enc -> gmssl sm2decrypt
+PASS  SM2 encryption: gmssl sm2encrypt -> drv_sm2_enc decrypt
+PASS  SM2 encryption: tampered C3 must NOT decrypt
+
+---- upstream self-check programs ----
+PASS  upstream SM3 self-test
+PASS  upstream SM4 self-test
+PASS  upstream SM2key self-test
+PASS  upstream SM2sv self-test
+PASS  upstream SM2enc self-test
+
+==============================================================
+ passed: 25   failed: 0
+==============================================================
