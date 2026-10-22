@@ -22,3 +22,6 @@ ZUC
 artifacts/official/*.rar
 artifacts/official/extracted/
 artifacts/guest-*.tar.gz
+
+# Markdown 转 PDF 的中间产物（HTML 由 scripts/md2pdf.ps1 现场生成）
+/*.html
