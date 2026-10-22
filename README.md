@@ -11,10 +11,10 @@
 
 | # | 作业要求 | 完成 | 证据 |
 | --- | --- | --- | --- |
-| ① | 调试运行检测中心源代码，至少 SM2/SM3/SM4；用 GmSSL 验证正确性；Markdown 记录过程；每完成一项功能/函数 git commit 一次（14 分） | ✅ | [`实践过程.md`](实践过程.md)、`artifacts/verify_all-2026-10-22.txt`（25/25 PASS）、**17 次提交（其中 11 次为功能级提交）** |
+| ① | 调试运行检测中心源代码，至少 SM2/SM3/SM4；用 GmSSL 验证正确性；Markdown 记录过程；每完成一项功能/函数 git commit 一次（14 分） | ✅ | [`实践过程.md`](实践过程.md)、`artifacts/verify_all-2026-10-22.txt`（25/25 PASS）、**20 次提交（其中 11 次为功能级提交）** |
 | ② | 在密标委网站查找 SM2/SM3/SM4 标准，分析代码与标准的对应关系（6 分） | ✅ | [`docs/02`](docs/02-SM3实现与标准对应.md)~[`docs/04`](docs/04-SM2实现与标准对应.md)、`artifacts/gmbz-norm-list.json`（该站后台接口取回的全量 177 条原始 JSON；本轮未附浏览器界面截图，证据为 JSON + 自写筛选脚本） |
 | ③ | Rust 实现（选做 10 分） | ⛔ 未做 | — |
-| ④ | 提交仓库链接 + git log | 🟡 | git log 完整（本仓库 `main` 分支，18 次提交）；**GitHub 推送本轮按要求暂缓**——`github.com` 本机 TCP 连接被重置，`api.github.com` 可达；网络恢复后建仓 `Yaqub-Saffar/lab2` 直接 push |
+| ④ | 提交仓库链接 + git log | ✅ | **GitHub 仓库已推送**：`https://github.com/Yaqub-Saffar/lab2`（公开仓库，`main` 分支 20 次提交全部在远端）；完整 git log 见 §7 |
 | ⑤ | 提交实践过程 Markdown 与 PDF；代码文档托管；记录问题、解决过程、反思 | ✅ | `实践过程.md`（含 3 张实机运行截图）+ `实践过程.pdf`（13 页 / 3 图内嵌）；`docs/05` §5.2 记录了 10 个真实问题 |
 
 ## 2. 结论速览
@@ -85,3 +85,45 @@ bash our/scripts/verify_all.sh    # 25 项交叉验证
 `third_party/SM2349/` 为检测中心发布源码的快照，仅限学术、非营利、非商业用途（见
 `third_party/SM2349/UPSTREAM-README.md`、`NOTICE.md`）。底层 MIRACL 库需另行获得授权，
 本仓库不包含 MIRACL。`tools/`、`scripts/`、`docs/` 为本人本实验新增内容。
+
+## 7. 课程项目链接
+
+- GitHub 仓库：`https://github.com/Yaqub-Saffar/lab2`（公开仓库，`main` 分支）
+- 远端提交数：20（`git ls-remote` 与 `git rev-list --count HEAD` 一致）
+- 提交物：`README.md`、`实践过程.md` / `实践过程.pdf`、`docs/00`~`docs/05`、
+  `tools/`（验证驱动）、`scripts/`（复现脚本）、`third_party/SM2349/`（源码快照）、
+  `artifacts/`（真实日志）、`screenshots/`（3 张实机运行图）
+- ⚠️ 未入库：官方发布包 `*.rar`（`artifacts/official/`）、虚机镜像导出包
+  （`artifacts/guest-*.tar.gz`）、编译产物、虚机凭据（`scripts/.vm-credentials`）
+  —— 均为 `.gitignore` 排除的过程物，不属于提交内容
+
+## 8. git log 运行结果
+
+```
+$ git log --oneline
+35087a0 docs: README 任务对照表与实际状态对齐
+4101c43 docs: 插入实机运行截图并重出实践过程 PDF
+1b94325 docs: 记录 VMware 快照锁冲突故障的根因与解法
+d963dd6 test: 新增一键演示脚本用于截图取证
+b58b01d docs: 提交实践过程 PDF 并补充 Markdown 转 PDF 脚本
+61c363c test: 归档真实运行日志与环境快照
+ea62c6c docs: 实践过程记录与仓库说明
+6bbcaa0 docs: 补齐环境、溯源、标准对应与验证结论文档
+acd8cbf feat(tools): 官方 PDF 源码抽取与逐行溯源比对
+a505cdd feat(tools): GmSSL 加密私钥解析工具
+e3188dd test: SM2/SM3/SM4 全量交叉验证脚本
+28daf33 build: 上游源码重编与验证程序链接脚本
+7bc5903 feat(asn1): SM2 签名与密文的 DER 编解码工具
+7daab1b feat(sm2): SM2 公钥加密与解密驱动
+26a0623 feat(sm2): SM2 密钥生成与签名验签驱动
+d45bec2 feat(sm4): SM4 分组加密驱动，支持 ECB 单块加解密
+10e0aad feat(sm3): SM3 摘要驱动，支持字符串、文件与标准输入
+200ad60 chore: 初始化实验二仓库骨架与宿主-虚机自动化脚本
+fe2e858 chore: 引入商用密码检测中心 SM2349 参考实现源码快照
+```
+
+> 其中 **11 次为功能级提交**（`feat` 7 + `test` 3 + `build` 1），对应
+> 「每完成一项功能或一个函数 git commit 一次」的要求。
+> 上表为首次推送时的 19 条；本节与 §1 表格的链接回填另计 1 次提交，
+> 推送后 `main` 分支共 **20 次**。
+
