@@ -1,0 +1,24 @@
+# 本地凭据，不入库
+scripts/.vm-credentials
+
+# 系统垃圾
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# 编译产物（guest 侧构建，仓库只保留源码与日志）
+*.o
+*.a
+SM3
+SM4
+SM2sv
+SM2enc
+SM2key
+ZUC
+!third_party/**
+
+# 官方源码压缩包与解包目录：体积大且可按 docs/01 的链接重新下载，
+# 仓库只保留抽取出来的文本、下载页快照与比对报告
+artifacts/official/*.rar
+artifacts/official/extracted/
+artifacts/guest-*.tar.gz
