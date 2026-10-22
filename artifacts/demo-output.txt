@@ -1,0 +1,102 @@
+
+==============================================================
+  1. Environment
+==============================================================
+NAME="openEuler"
+VERSION="24.03 (LTS-SP4)"
+ID="openEuler"
+kernel : 6.6.0-159.4.17.171.oe2403sp4.x86_64
+gcc    : gcc (GCC) 12.3.1 (openEuler 12.3.1-110.oe2403sp4)
+gmssl  : GmSSL 3.2.0
+openssl: OpenSSL 3.5.6 7 Apr 2026 (Library: OpenSSL 3.5.6 7 Apr 2026)
+user   : 20241422myh   host: localhost.localdomain
+ip     : inet 192.168.110.131
+
+==============================================================
+  2. SCCTC sources (SM2349) obtained from https://github.com/Arkq/SM2349
+==============================================================
+3364e2a Provide MIRACL library as a git submodule
+7599650 Make executable for every algorithm
+816c400 Add source files extracted from PDFs
+--- files ---
+KDF.h SM2_ENC.c SM2_ENC.h SM2_ENC.o SM2_KEY_EX.c SM2_KEY_EX.h SM2_KEY_EX.o SM2_sv.c SM2_sv.h SM2_sv.o SM3.c SM3.h SM3_m.c SM3_m.o SM3.o SM4.c SM4.h SM4.o ZUC.c ZUC.h ZUC.o 
+--- MIRACL submodule commit ---
+b9b8fd4 Merge pull request #81 from miracl/move-docs
+--- the official package only ships PDF listings, not .c files ---
+    (see docs/01-源码获取与溯源.md : 1353/1420 code lines matched 95.3%)
+
+==============================================================
+  3. Upstream self-check programs (exit code 0 == pass)
+==============================================================
+./SM3    : exit=0  (pass)
+./SM4    : exit=0  (pass)
+./SM2key : exit=0  (pass)
+./SM2sv  : exit=0  (pass)
+./SM2enc : exit=0  (pass)
+
+==============================================================
+  4. Our drivers against the GB/T test vectors
+==============================================================
+--- SM3  GB/T 32905-2016 appendix A : abc ---
+ours : 66C7F0F462EEEDD9D1F2D46BDC10E4E24167C4875CF2F7A2297DA02B8F4BA8E0
+gmssl: 66c7f0f462eeedd9d1f2d46bdc10e4e24167c4875cf2f7a2297da02b8f4ba8e0
+--- SM4  GB/T 32907-2016 appendix A.1 ---
+ours : 681EDF34D206965E86B3E94F536E4246
+gmssl: 681edf34d206965e86b3e94f536e4246
+--- SM2  GB/T 32918.5-2017 appendix A.2 key pair ---
+x=09F9DF311E5421A150DD7D161E4BC5C672179FAD1833FC076BB08FF356F35020
+y=CCEA490CE26775A52DC6EA718CC1AA600AED05FBF35E084A6632F6072DA9AD13
+
+==============================================================
+  5. Cross verification with GmSSL (both directions)
+==============================================================
+--- 5.1 SM2 signature : ours -> gmssl sm2verify ---
+GmSSL private key d = 17B24FEB366E59FDE5B5071574D2FF803158E8805148B72D0E5AAFFAACF97C57
+za=5BDC64A29BD43391339DD9A22D7F196EFB29882EF1B8674040DFAABA97C5B5FE
+r=2745765B7B7A5FF04015F329231209580B39B0703B2F26A9BDD4BB073A962D5D
+s=B7FA1F02D7024A760E2946A4FD199ED45C223D3FC41B248B9E5F6672A19C0B62
+verify : success
+gmssl sm2verify exit = 0   (0 == our signature is accepted by GmSSL)
+--- 5.2 SM2 signature : gmssl sm2sign -> ours ---
+r=3E4857E4865C6E80321CF5533A8F608637BB3EEFF5681841A0828D791BCDADAF
+s=4E27D746EAA49318DEE4D59749BA271B564E9575CA2DF90F926E2C658EF21D75
+za=5BDC64A29BD43391339DD9A22D7F196EFB29882EF1B8674040DFAABA97C5B5FE
+verify=OK
+our verify exit = 0   (0 == GmSSL signature is accepted by us)
+--- 5.3 SM2 encryption : ours -> gmssl sm2decrypt ---
+c1x=04EBFC718E8D1798620432268E77FEB6415E2EDE0E073C0F4F640ECD2E149A73
+c1y=E858F9D81E5430A57B36DAAB8F950A3C64E6EE6A63094D99283AFF767E124DF0
+c3=F8D83AFD7D318947FA43BDF512A8D2570BCC0A8403FBFAF3E6C53AEBF328E135
+c2=192D83E0E52EB8DED7FF4DE601FA
+decrypted by GmSSL : message digest
+original           : message digest
+
+==============================================================
+  6. Full verification run (25 checks)
+==============================================================
+---- SM2 signature ----
+PASS  SM2 signature: drv_sm2_sv -> gmssl sm2verify
+PASS  SM2 signature: gmssl sm2sign -> drv_sm2_sv verify
+PASS  SM2 ZA: ours vs GmSSL (implied by mutual verify)
+PASS  SM2 signature: tampered message must NOT verify
+PASS  SM2 signature: tampered r must NOT verify in GmSSL
+
+---- SM2 encryption ----
+PASS  SM2 encryption: drv_sm2_enc -> gmssl sm2decrypt
+PASS  SM2 encryption: gmssl sm2encrypt -> drv_sm2_enc decrypt
+PASS  SM2 encryption: tampered C3 must NOT decrypt
+
+---- upstream self-check programs ----
+PASS  upstream SM3 self-test
+PASS  upstream SM4 self-test
+PASS  upstream SM2key self-test
+PASS  upstream SM2sv self-test
+PASS  upstream SM2enc self-test
+
+==============================================================
+ passed: 25   failed: 0
+==============================================================
+
+==============================================================
+  Experiment 2 demo finished.  20241422 Mu Yihan
+==============================================================
