@@ -1,0 +1,37 @@
++ cd /home/20241422myh/exp2/SM2349
++ make clean
+rm -f SM2enc SM2key SM2sv SM3 SM4 ZUC
++ make miracl.a
++ tail -5
+gcc -c -o miracl/source/mrflsh2.o miracl/source/mrflsh2.c -I./miracl/include
+gcc -c -o miracl/source/mrflsh3.o miracl/source/mrflsh3.c -I./miracl/include
+gcc -c -o miracl/source/mrflsh4.o miracl/source/mrflsh4.c -I./miracl/include
+gcc -c -o miracl/source/mrmuldv_.o miracl/source/mrmuldv_.c -I./miracl/include
+ar -rcs miracl.a miracl/source/mrcore.o miracl/source/mrarth0.o miracl/source/mrarth1.o miracl/source/mrarth2.o miracl/source/mralloc.o miracl/source/mrsmall.o miracl/source/mrio1.o miracl/source/mrio2.o miracl/source/mrgcd.o miracl/source/mrjack.o miracl/source/mrxgcd.o miracl/source/mrarth3.o miracl/source/mrbits.o miracl/source/mrrand.o miracl/source/mrprime.o miracl/source/mrcrt.o miracl/source/mrscrt.o miracl/source/mrmonty.o miracl/source/mrpower.o miracl/source/mrsroot.o miracl/source/mrcurve.o miracl/source/mrfast.o miracl/source/mrshs.o miracl/source/mrshs256.o miracl/source/mrshs512.o miracl/source/mrsha3.o miracl/source/mrfpe.o miracl/source/mraes.o miracl/source/mrgcm.o miracl/source/mrlucas.o miracl/source/mrzzn2.o miracl/source/mrzzn2b.o miracl/source/mrzzn3.o miracl/source/mrzzn4.o miracl/source/mrecn2.o miracl/source/mrstrong.o miracl/source/mrbrick.o miracl/source/mrebrick.o miracl/source/mrec2m.o miracl/source/mrgf2m.o miracl/source/mrflash.o miracl/source/mrfrnd.o miracl/source/mrdouble.o miracl/source/mrround.o miracl/source/mrbuild.o miracl/source/mrflsh1.o miracl/source/mrpi.o miracl/source/mrflsh2.o miracl/source/mrflsh3.o miracl/source/mrflsh4.o miracl/source/mrmuldv_.o
++ tail -20
++ make
+gcc -o SM2enc src/SM2_ENC.o src/SM3.o -I./miracl/include miracl.a
+gcc -o SM2key src/SM2_KEY_EX.o src/SM3.o -I./miracl/include miracl.a
+gcc -o SM2sv src/SM2_sv.o src/SM3.o -I./miracl/include miracl.a
+gcc -o SM3 src/SM3_m.o src/SM3.o -I./miracl/include miracl.a
+gcc -o SM4 src/SM4.o -I./miracl/include miracl.a
+gcc -o ZUC src/ZUC.o -I./miracl/include miracl.a
++ set +x
+=== built binaries ===
+-rwxr-xr-x. 1 20241422myh 20241422myh 119832 10月22日 14:06 SM2enc
+-rwxr-xr-x. 1 20241422myh 20241422myh 124096 10月22日 14:06 SM2key
+-rwxr-xr-x. 1 20241422myh 20241422myh 119840 10月22日 14:06 SM2sv
+-rwxr-xr-x. 1 20241422myh 20241422myh  16696 10月22日 14:06 SM3
+-rwxr-xr-x. 1 20241422myh 20241422myh  16768 10月22日 14:06 SM4
+-rwxr-xr-x. 1 20241422myh 20241422myh  21840 10月22日 14:06 ZUC
+=== run upstream self-test programs ===
+--- ./SM3 ---
+exit=0
+--- ./SM4 ---
+exit=0
+--- ./SM2key ---
+exit=0
+--- ./SM2sv ---
+exit=0
+--- ./SM2enc ---
+exit=0
